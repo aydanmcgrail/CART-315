@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ComputerPaddle
+public class ComputerPaddle : Paddle
 {
     
 }
