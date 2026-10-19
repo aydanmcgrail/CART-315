@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Player player;
     [SerializeField] private Spawner spawner;
+    [SerializeField] private UtensilSpawner utensilSpawner;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject gameOver;
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (utensilSpawner == null) {
+            Debug.LogError("Assign the UtensilSpawner component to the Game Manager.", this);
+        }
+
         Pause();
     }
 
@@ -39,6 +44,10 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         player.enabled = false;
+        spawner.enabled = false;
+        if (utensilSpawner != null) {
+            utensilSpawner.enabled = false;
+        }
     }
 
     public void Play()
@@ -49,13 +58,23 @@ public class GameManager : MonoBehaviour
         playButton.SetActive(false);
         gameOver.SetActive(false);
 
-        Time.timeScale = 1f;
-        player.enabled = true;
-
         Pipes[] pipes = FindObjectsByType<Pipes>(FindObjectsSortMode.None);
 
         for (int i = 0; i < pipes.Length; i++) {
             Destroy(pipes[i].gameObject);
+        }
+
+        Utensil[] utensils = FindObjectsByType<Utensil>(FindObjectsSortMode.None);
+
+        for (int i = 0; i < utensils.Length; i++) {
+            Destroy(utensils[i].gameObject);
+        }
+
+        Time.timeScale = 1f;
+        player.enabled = true;
+        spawner.enabled = true;
+        if (utensilSpawner != null) {
+            utensilSpawner.enabled = true;
         }
     }
 
