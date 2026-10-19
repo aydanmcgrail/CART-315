@@ -214,7 +214,7 @@ MonoBehaviour:
   animationSpeed: 0.5
   mirrorAlternateTiles: 1
   wheatfieldHeightOffset: 0.5
-  foregroundYOffset: 0
+  foregroundYOffset: -0.5
   wheatfieldSortingOrder: -1
   foregroundWheatfieldSortingOrder: 2
   backgroundSortingOrder: -10
