@@ -10,10 +10,29 @@ I think of turning the bird into a crow with weird proportions with a clumsy fli
 I want to change the pipes into hands that at first are very far from the bird height-wise but as the bird gets closer to them they will reach out vertically to random heights to try and touch the bird. In their maximum height reached they will be just like regular pipes it’s just that at first they are at their base height. 
 
 I also want to add some forks and kitchen knives at the bottom hovering ominously and randomly some of them can jump at random maximum heights and may come in contact with the crow. It’s to add a layer of danger to the game and to express the idea that some group of external threat is actively trying to top the course of the crow.
-
-
+____________________________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________________________________
 Entry 2: 
 
 After playing the game I was a bit unsure about the moving to the left sytem I added. I think it gives the player the ability to rearrange their position so that it may survive a collision with the pipes/hands but firstly it's not told anywhere for the player who did not create the game. Maybe I can add a visual cue that when the player press the a key to go left the bird could stop its animation to signify it is stopping the foward motion. I also though more about the forks and knives element and got the idea that maybe the jumps could trigger mostly behind the bird so that if the player chooses to go more to the left they stop their imminent collision with the pipes but will end up hitting the jumping utensils. Thematically you could argue that this signifies that the crow is trapped and will eventually hit something. 
 
 Also I have no clue how to change the base/menu images that are still composed of the original bird and only one not duplicated sprite of the wheat field. 
+____________________________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________________________________
+Entry 3: 
+
+Actually the utensils and the pipes attacking at the same time might be too much. What if I divide the course between those two? Maybe make a pattern where there is a random amount between 3 and 6 of the same pipes and after that another set of utensils of the same random amount? It is surely possible but is it too difficult to implement? There should be some kind of coding system that defines when there are pipes and where there are forks/knives. 
+
+____________________________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________________________________
+Entry 4: 
+
+trying to replace the base assets for the play button and game over. i do not know why but i have some problem with the game over asset i created when i export it from photoshop it's in one file but in unity it has been separated in many parts. why??
+I still have no idea but I redid the text but kept the same exact dimension as the old game over text and now it's good enough. 
+
+____________________________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________________________________
+Entry 5: 
+
+I added a new hand on the left side moving up and down and back and forth. it has been added as a way to hopefully create a relation with the need to move left. As the player goes left they will myabe be forced to move further to the right to get further from the hand following them. 
+I also added some info about the controls so that players actually have an idea of what new mods I added. 

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private GameObject directions;
 
     public int score { get; private set; } = 0;
 
@@ -37,6 +38,12 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Assign the UtensilSpawner component to the Game Manager.", this);
         }
 
+        if (directions == null) {
+            Debug.LogError("Assign the Directions object to the Game Manager.", this);
+        } else {
+            directions.SetActive(false);
+        }
+
         Pause();
     }
 
@@ -58,6 +65,9 @@ public class GameManager : MonoBehaviour
 
         playButton.SetActive(false);
         gameOver.SetActive(false);
+        if (directions != null) {
+            directions.SetActive(false);
+        }
 
         Pipes[] pipes = FindObjectsByType<Pipes>(FindObjectsSortMode.None);
 
@@ -83,6 +93,9 @@ public class GameManager : MonoBehaviour
     {
         playButton.SetActive(true);
         gameOver.SetActive(true);
+        if (directions != null) {
+            directions.SetActive(true);
+        }
 
         Pause();
     }
