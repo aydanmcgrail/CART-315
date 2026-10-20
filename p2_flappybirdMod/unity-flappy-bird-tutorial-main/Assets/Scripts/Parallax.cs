@@ -101,21 +101,27 @@ public class Parallax : MonoBehaviour
     private void OnDisable()
     {
         for (int i = 0; i < generatedTiles.Count; i++) {
-            generatedTiles[i].SetActive(false);
+            if (generatedTiles[i] != null) {
+                generatedTiles[i].SetActive(false);
+            }
         }
     }
 
     private void OnEnable()
     {
         for (int i = 0; i < generatedTiles.Count; i++) {
-            generatedTiles[i].SetActive(true);
+            if (generatedTiles[i] != null) {
+                generatedTiles[i].SetActive(true);
+            }
         }
     }
 
     private void OnDestroy()
     {
         for (int i = 0; i < generatedTiles.Count; i++) {
-            Destroy(generatedTiles[i]);
+            if (generatedTiles[i] != null) {
+                Destroy(generatedTiles[i]);
+            }
         }
 
         if (ownsForegroundWheatfield && foregroundWheatfield != null) {
@@ -129,14 +135,26 @@ public class Parallax : MonoBehaviour
         if (spriteRenderer != null) {
             float movement = animationSpeed * tileWidth * Time.deltaTime;
             for (int i = 0; i < tiles.Count; i++) {
-                tiles[i].transform.position += Vector3.left * movement;
+                if (tiles[i] != null) {
+                    tiles[i].transform.position += Vector3.left * movement;
+                }
+            }
+
+            for (int i = tiles.Count - 1; i >= 0; i--) {
+                if (tiles[i] == null) {
+                    tiles.RemoveAt(i);
+                }
+            }
+
+            if (tiles.Count == 0) {
+                return;
             }
 
             Vector3 cameraPosition = mainCamera.ViewportToWorldPoint(
                 new Vector3(0f, 0.5f, Mathf.Abs(transform.position.z - mainCamera.transform.position.z)));
             float leftEdge = cameraPosition.x;
 
-            while (tiles[0].bounds.max.x < leftEdge) {
+            while (tiles.Count > 0 && tiles[0].bounds.max.x < leftEdge) {
                 SpriteRenderer recycledTile = tiles[0];
                 SpriteRenderer rightmostTile = tiles[tiles.Count - 1];
                 tiles.RemoveAt(0);

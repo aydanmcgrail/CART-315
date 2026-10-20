@@ -15,6 +15,7 @@ public class UtensilSpawner : MonoBehaviour
     [SerializeField] private float spriteScale = 0.28f;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpChance = 0.4f;
+    [SerializeField] private float passedBirdJumpChance = 0.85f;
     [SerializeField] private float minimumJumpDelay = 0.4f;
     [SerializeField] private float maximumJumpDelay = 1.5f;
     [SerializeField] private float minimumJumpHeight = 1.5f;
@@ -22,6 +23,7 @@ public class UtensilSpawner : MonoBehaviour
     [SerializeField] private float jumpDuration = 0.8f;
 
     private Camera mainCamera;
+    private Player player;
     private Coroutine spawnRoutine;
 
     private void OnEnable()
@@ -32,13 +34,30 @@ public class UtensilSpawner : MonoBehaviour
             return;
         }
 
+        if (minimumSpawnInterval > maximumSpawnInterval) {
+            Debug.LogWarning(
+                "UtensilSpawner spawn interval bounds were reversed; swapping them.",
+                this);
+            float previousMinimum = minimumSpawnInterval;
+            minimumSpawnInterval = maximumSpawnInterval;
+            maximumSpawnInterval = previousMinimum;
+        }
+
         if (minimumSpawnInterval <= 0f || maximumSpawnInterval < minimumSpawnInterval ||
             minimumJumpDelay < 0f || maximumJumpDelay < minimumJumpDelay ||
             minimumJumpHeight < 0f || maximumJumpHeight < minimumJumpHeight ||
             minimumRowSize < 1 || maximumRowSize < minimumRowSize ||
-            jumpChance < 0f || jumpChance > 1f || spacing <= 0f ||
+            jumpChance < 0f || jumpChance > 1f ||
+            passedBirdJumpChance < 0f || passedBirdJumpChance > 1f || spacing <= 0f ||
             spriteScale <= 0f || speed < 0f || jumpDuration <= 0f) {
-            Debug.LogError("UtensilSpawner has invalid timing or jump-height settings.", this);
+            Debug.LogError(
+                $"UtensilSpawner has invalid settings. Spawn interval: {minimumSpawnInterval}-{maximumSpawnInterval}; " +
+                $"jump delay: {minimumJumpDelay}-{maximumJumpDelay}; " +
+                $"jump height: {minimumJumpHeight}-{maximumJumpHeight}; " +
+                $"row size: {minimumRowSize}-{maximumRowSize}; " +
+                $"jump chances: {jumpChance}, {passedBirdJumpChance}; spacing: {spacing}; " +
+                $"sprite scale: {spriteScale}; speed: {speed}; jump duration: {jumpDuration}.",
+                this);
             enabled = false;
             return;
         }
@@ -46,6 +65,13 @@ public class UtensilSpawner : MonoBehaviour
         mainCamera = Camera.main;
         if (mainCamera == null) {
             Debug.LogError("UtensilSpawner requires a camera tagged MainCamera.", this);
+            enabled = false;
+            return;
+        }
+
+        player = FindFirstObjectByType<Player>();
+        if (player == null) {
+            Debug.LogError("UtensilSpawner requires a Player in the scene.", this);
             enabled = false;
             return;
         }
@@ -99,9 +125,11 @@ public class UtensilSpawner : MonoBehaviour
         Utensil utensil = hazard.AddComponent<Utensil>();
         utensil.Initialize(
             mainCamera,
+            player.transform,
             speed,
             baseHeight,
             Random.value < jumpChance,
+            passedBirdJumpChance,
             Random.Range(minimumJumpDelay, maximumJumpDelay),
             Random.Range(minimumJumpHeight, maximumJumpHeight),
             jumpDuration);

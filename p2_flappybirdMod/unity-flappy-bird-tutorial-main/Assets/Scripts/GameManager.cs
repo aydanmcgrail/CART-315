@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+        player.ShowIdleSprite();
         player.enabled = false;
         spawner.enabled = false;
         if (utensilSpawner != null) {

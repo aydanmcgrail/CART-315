@@ -2,6 +2,9 @@
 
 public class Player : MonoBehaviour
 {
+    private const float SpriteAnimationInterval = 0.15f;
+    private const int WingsUpSpriteIndex = 2;
+
     public Sprite[] sprites;
     public float strength = 5f;
     public float gravity = -9.81f;
@@ -11,23 +14,30 @@ public class Player : MonoBehaviour
     [SerializeField] private float flapMultiplierIncrease = 0.4f;
     [SerializeField] private float maximumFlapMultiplier = 2f;
     [SerializeField] private float flapComboWindow = 0.55f;
-    [SerializeField] private float retreatSpeed = 3f;
-    [SerializeField] private float diveAcceleration = 16f;
+    [SerializeField] private float retreatSpeed = 4f;
+    [SerializeField] private float returnSpeed = 2f;
+    
 
     private SpriteRenderer spriteRenderer;
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Transform bottomTriggerTransform;
     private BoxCollider2D bottomTriggerCollider;
+    private Sprite idleSprite;
     private Vector3 direction;
     private Vector3 startingPosition;
     private int spriteIndex;
     private int flapStreak;
+    private float spriteAnimationElapsed;
     private float lastFlapTime = float.NegativeInfinity;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null) {
+            idleSprite = spriteRenderer.sprite;
+        }
+
         playerCollider = GetComponent<Collider2D>();
         mainCamera = Camera.main;
         startingPosition = transform.position;
@@ -41,9 +51,11 @@ public class Player : MonoBehaviour
         CreateBottomTrigger();
     }
 
-    private void OnDisable()
+    public void ShowIdleSprite()
     {
-        CancelInvoke(nameof(AnimateSprite));
+        if (spriteRenderer != null) {
+            spriteRenderer.sprite = idleSprite;
+        }
     }
 
     private void OnEnable()
@@ -54,17 +66,15 @@ public class Player : MonoBehaviour
         direction = Vector3.zero;
         flapStreak = 0;
         lastFlapTime = float.NegativeInfinity;
-        InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
+        spriteAnimationElapsed = 0f;
     }
 
     private void Update()
     {
+        UpdateSpriteAnimation();
+
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetMouseButtonDown(0)) {
             Flap();
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow)) {
-            direction.y -= diveAcceleration * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.A)) {
@@ -72,6 +82,14 @@ public class Player : MonoBehaviour
             float playerHalfWidth = playerCollider != null ? playerCollider.bounds.extents.x : 0f;
             float minimumX = leftEdge + playerHalfWidth;
             float newX = Mathf.Max(transform.position.x - retreatSpeed * Time.deltaTime, minimumX);
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        }
+
+        if (Input.GetKey(KeyCode.D)) {
+            float rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x;
+            float playerHalfWidth = playerCollider != null ? playerCollider.bounds.extents.x : 0f;
+            float maximumX = rightEdge - playerHalfWidth;
+            float newX = Mathf.Min(transform.position.x + returnSpeed * Time.deltaTime, maximumX);
             transform.position = new Vector3(newX, transform.position.y, transform.position.z);
         }
 
@@ -83,6 +101,29 @@ public class Player : MonoBehaviour
         Vector3 rotation = transform.eulerAngles;
         rotation.z = direction.y * tilt;
         transform.eulerAngles = rotation;
+    }
+
+    private void UpdateSpriteAnimation()
+    {
+        if (sprites == null || sprites.Length == 0 || spriteRenderer == null) {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.A)) {
+            if (sprites.Length > WingsUpSpriteIndex) {
+                spriteRenderer.sprite = sprites[WingsUpSpriteIndex];
+            }
+
+            return;
+        }
+
+        spriteRenderer.sprite = sprites[spriteIndex];
+        spriteAnimationElapsed += Time.deltaTime;
+
+        while (spriteAnimationElapsed >= SpriteAnimationInterval) {
+            spriteAnimationElapsed -= SpriteAnimationInterval;
+            AnimateSprite();
+        }
     }
 
     private void LateUpdate()

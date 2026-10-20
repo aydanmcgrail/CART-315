@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 527830928}
   spawner: {fileID: 2105631072}
-  utensilSpawner: {fileID: 0}
+  utensilSpawner: {fileID: 1437550401}
   scoreText: {fileID: 1474871343}
   playButton: {fileID: 892178073}
   gameOver: {fileID: 298509898}
@@ -564,7 +564,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 4b4a57de377138e4e8369d8145550062, type: 3}
+  m_Sprite: {fileID: 126433631417582957, guid: 44ba2a864660d614ba668221c191eea5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -676,7 +676,7 @@ MonoBehaviour:
   maximumFlapMultiplier: 2
   flapComboWindow: 0.55
   retreatSpeed: 3
-  diveAcceleration: 16
+  returnSpeed: 2
 --- !u!1 &892178073
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +791,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 51e7c1859c7e9f5459e2f8d684c56de6, type: 3}
+  m_Sprite: {fileID: 1860827697598595416, guid: cf64f277950abfa4abd39564f0018f07,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -964,17 +965,18 @@ MonoBehaviour:
   minimumSpawnInterval: 1
   maximumSpawnInterval: 0.5
   spawnOffset: 1
-  minimumRowSize: 8
-  maximumRowSize: 12
-  spacing: 0.75
-  baseHeight: -2.6
+  minimumRowSize: 3
+  maximumRowSize: 8
+  spacing: 1.5
+  baseHeight: -4
   spriteScale: 0.28
   speed: 5
   jumpChance: 0.4
+  passedBirdJumpChance: 0.85
   minimumJumpDelay: 0.4
   maximumJumpDelay: 1.5
   minimumJumpHeight: 1.5
-  maximumJumpHeight: 3.5
+  maximumJumpHeight: 5
   jumpDuration: 0.8
 --- !u!1 &1474871341
 GameObject:
@@ -1037,7 +1039,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7d09cb86f99674e4bbc73a220384e472, type: 3}
     m_FontSize: 300
-    m_FontStyle: 0
+    m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 300

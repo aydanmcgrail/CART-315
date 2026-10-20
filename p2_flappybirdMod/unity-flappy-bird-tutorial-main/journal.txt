@@ -1,0 +1,19 @@
+Entry 1:
+
+I chose to modify the flappy bird game because out of the three games it’s the one that strikes me the most visually. It also helps me more than the other to extrapolate creatively out of the already present feel of the game and its assets. 
+
+But the game is very basic. You move up and down. You are constantly dragged to the left side of the map into pipes set at a random height. How do I change a simple but very efficient game? 
+I already know what the visual style would look like but how do I change the code to help it give the meaning I try to express with the visual? 
+
+I think of turning the bird into a crow with weird proportions with a clumsy flight. I want to make the player feel that the ragged looking crow is on its last leg and is about to give up anytime soon. It could have the ability to go back to the right but I will still keep the camera going to the left so there will be a limit to the distance you can go back right. I also want to add a system where you can press up and down to fly just like a regular flappy bird but pressing them slowly just gives a sluggish flight but as you press repetitively the bird will pick up speed or even too much speed. It’s to keep in mind that the bird is tired but if in a stress state it can find some strength left but that strength may be a bit too much to handle. 
+
+I want to change the pipes into hands that at first are very far from the bird height-wise but as the bird gets closer to them they will reach out vertically to random heights to try and touch the bird. In their maximum height reached they will be just like regular pipes it’s just that at first they are at their base height. 
+
+I also want to add some forks and kitchen knives at the bottom hovering ominously and randomly some of them can jump at random maximum heights and may come in contact with the crow. It’s to add a layer of danger to the game and to express the idea that some group of external threat is actively trying to top the course of the crow.
+
+
+Entry 2: 
+
+After playing the game I was a bit unsure about the moving to the left sytem I added. I think it gives the player the ability to rearrange their position so that it may survive a collision with the pipes/hands but firstly it's not told anywhere for the player who did not create the game. Maybe I can add a visual cue that when the player press the a key to go left the bird could stop its animation to signify it is stopping the foward motion. I also though more about the forks and knives element and got the idea that maybe the jumps could trigger mostly behind the bird so that if the player chooses to go more to the left they stop their imminent collision with the pipes but will end up hitting the jumping utensils. Thematically you could argue that this signifies that the crow is trapped and will eventually hit something. 
+
+Also I have no clue how to change the base/menu images that are still composed of the original bird and only one not duplicated sprite of the wheat field. 
