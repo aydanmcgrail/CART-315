@@ -1,0 +1,14 @@
+Entry 1: 
+For this project I wanted to work on an already existing idea I had in my head of a somwehat liminal space with a large screening device and wierd object that makes faint and unnatural noises. The two main things I had in mind for the objects were a cloudy ghost like creature and trees with leaves replaced by a spinning sawblade.
+I focused for this project on the sawblades only and decided to add instead models of subwoofers and a tower construction I made has an opportunity to add more sounds and visuals. 
+
+Entry 2: 
+I designed the buidling in blender by creating three rooms that I connected together. I wanted to create some rounded shapes so each lines between the walls and the cielling has a smooth curving shape. This idea was to emphasize tha vastness of the room by making its edges ambiguous so that there might be no limits in the viewer's mind. The biggest problem I had was the in some parts of the flat wall the geometry is wierd and because I did not put any textures the light that bounces on the geometry of the walls makes those wierd edges stand out. 
+
+Entry 3: 
+I downloaded a new skybox and changed the base spot light and created windows on the walls and cielings so the lights peaks through them and creates contrasted shadows. 
+
+Entry 4: 
+I created a custom sound for the sawblade and imported music I found for the tower and the subwoofers. I also had an hard time with the material already added in blender and the materials present in unity. I wanted to tweak the blender created materials because it did not look right with the lighting system in unity but I think I missed something because it did not work. 
+
+ 
