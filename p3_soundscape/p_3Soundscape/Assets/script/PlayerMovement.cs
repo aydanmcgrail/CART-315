@@ -66,10 +66,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = transform.right * movementInput.x + transform.forward * movementInput.y;
         movement = Vector3.ClampMagnitude(movement, 1f) * 10f;
 
-        Vector3 velocity = rb.velocity;
+        Vector3 velocity = rb.linearVelocity;
         velocity.x = movement.x;
         velocity.z = movement.z;
-        rb.velocity = velocity;
+        rb.linearVelocity = velocity;
     }
 
     void LateUpdate()
