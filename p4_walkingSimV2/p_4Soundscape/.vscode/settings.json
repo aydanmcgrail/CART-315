@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "p_3Soundscape.slnx"
+    "dotnet.defaultSolution": "p_4Soundscape.slnx"
 }
