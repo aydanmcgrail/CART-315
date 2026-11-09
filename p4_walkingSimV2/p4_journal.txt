@@ -1,0 +1,3 @@
+Entry 1: 
+When thinking about the idea of the prototype 3, I thought I could enhance the strangeness of the structure you walk in. I have always secret entrances and pathways so I got the idea to create a portion of the floor that when pressing a button will slide to reveal a secret downway path to another room of this weird museum. Another interaction I could implement is a lever that could stop the spin of the sawblades. Maybe add a gradual stop instead of an instant stop. I should also keep in mind to also stop the sound. a sound for the floor plane moving should also have a sound to notify people that something happened when clicking the floor lever. 
+ 
