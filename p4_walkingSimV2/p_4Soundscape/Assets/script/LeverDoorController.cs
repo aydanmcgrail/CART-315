@@ -4,9 +4,12 @@ using UnityEngine;
 public class LeverDoorController : MonoBehaviour
 {
     [SerializeField] private Animator doorAnimator;
+    [SerializeField] private Animator leverAnimator;
     [SerializeField] private Camera interactionCamera;
+    [SerializeField] private AudioSource activationAudioSource;
     [SerializeField, Min(0.1f)] private float interactionDistance = 5f;
     [SerializeField] private string openTrigger = "Open";
+    [SerializeField] private string pressTrigger = "Pressed";
 
     private bool activated;
 
@@ -15,6 +18,12 @@ public class LeverDoorController : MonoBehaviour
         if (interactionCamera == null)
         {
             interactionCamera = Camera.main;
+        }
+
+        if (activationAudioSource != null)
+        {
+            activationAudioSource.playOnAwake = false;
+            activationAudioSource.loop = false;
         }
     }
 
@@ -27,6 +36,13 @@ public class LeverDoorController : MonoBehaviour
             return;
         }
 
+        if (leverAnimator == null)
+        {
+            Debug.LogError("LeverDoorController requires a Lever Animator reference.", this);
+            enabled = false;
+            return;
+        }
+
         if (interactionCamera == null)
         {
             Debug.LogError("LeverDoorController requires an interaction camera or a MainCamera-tagged camera.", this);
@@ -34,21 +50,38 @@ public class LeverDoorController : MonoBehaviour
             return;
         }
 
-        bool hasOpenTrigger = false;
-        foreach (AnimatorControllerParameter parameter in doorAnimator.parameters)
+        if (activationAudioSource == null || activationAudioSource.clip == null)
         {
-            if (parameter.name == openTrigger && parameter.type == AnimatorControllerParameterType.Trigger)
-            {
-                hasOpenTrigger = true;
-                break;
-            }
+            Debug.LogError("LeverDoorController requires an AudioSource with an activation sound AudioClip.", this);
+            enabled = false;
+            return;
         }
 
-        if (!hasOpenTrigger)
+        if (!HasTrigger(doorAnimator, openTrigger))
         {
             Debug.LogError($"The Door Animator requires a Trigger parameter named '{openTrigger}'.", doorAnimator);
             enabled = false;
+            return;
         }
+
+        if (!HasTrigger(leverAnimator, pressTrigger))
+        {
+            Debug.LogError($"The Lever Animator requires a Trigger parameter named '{pressTrigger}'.", leverAnimator);
+            enabled = false;
+        }
+    }
+
+    private static bool HasTrigger(Animator animator, string triggerName)
+    {
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            if (parameter.name == triggerName && parameter.type == AnimatorControllerParameterType.Trigger)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void Update()
@@ -63,7 +96,9 @@ public class LeverDoorController : MonoBehaviour
             (hit.transform == transform || hit.transform.IsChildOf(transform)))
         {
             activated = true;
+            leverAnimator.SetTrigger(pressTrigger);
             doorAnimator.SetTrigger(openTrigger);
+            activationAudioSource.PlayOneShot(activationAudioSource.clip);
         }
     }
 }
